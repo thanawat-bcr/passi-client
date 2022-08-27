@@ -3,7 +3,8 @@ LayoutPrimary.index
   .flex.flex-col.my-auto.items-center.gap-y-6
     img.w-20.h-20(src="/logo.png")
     h2.text-primary-500 Scan QR Code
-    .w-48.h-48.border
+    .w-64.h-64.border
+      qrcode-stream(@init="init" @decode="decode" :camera="'auto'")
     .body-2.text-primary-500.text-center Please scan your QR Code here to register your passport into our system.
   .flex.items-center.gap-x-1
     .caption.text-gray-100 Already have an account?
@@ -15,7 +16,15 @@ LayoutPrimary.index
 import { defineComponent } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
-  // setup() {},
+  setup() {
+    const init = () => { console.log('Init!') };
+    const decode = (value: any) => { console.log('Decode!', value) };
+
+    return {
+      init,
+      decode,
+    };
+  },
 });
 
 export default index;
