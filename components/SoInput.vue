@@ -3,16 +3,16 @@
 ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }")
   label.so-input.w-full.relative(
     :class="`${inputSize.container} ${inputColor}`"
-    :style="`${errors.length > 0 ? 'border-color: #EF4444;' : ''}`"
+    :style="`${errors.length > 0 ? 'border-color: #E46B7C;' : ''}`"
   )
-    i.mr-2(v-if="leading" :class="`ph-${leading}`")
+    i.mr-2(v-if="leading" :class="`ph-${leading}`" :style="`${errors.length > 0 ? 'color: #E46B7C;' : ''}`")
     input.w-full(
       v-if="inputType !== 'select'"
       :value="value"
       :type="inputType"
       :disabled="disabled"
       :placeholder="placeholder"
-      :style="`${errors.length > 0 ? 'color: #EF4444;' : ''}`"
+      :style="`${errors.length > 0 ? 'color: #E46B7C;' : ''}`"
       :class="inputSize.text"
       @mouseover="hoverHandler(true)"
       @mouseleave="hoverHandler(false)"
@@ -77,9 +77,9 @@ const SoInput = defineComponent({
     });
 
     const inputColor = computed(() => {
-      let inactive = 'text-primary-400 bg-white border border-solid border-gray-100'
-      let hover = 'text-primary-400 bg-white border border-solid border-primary-400'
-      let focus = 'text-primary-400 bg-white border border-solid border-primary-400'
+      let inactive = 'text-primary-500 bg-white border border-solid border-gray-100'
+      let hover = 'text-primary-500 bg-white border border-solid border-primary-400'
+      let focus = 'text-primary-500 bg-white border border-solid border-primary-400'
       let disabled = 'text-gray-200 bg-gray-100'
 
       if (props.disabled) return disabled;
@@ -132,7 +132,7 @@ textarea, input, select{
   outline: none;
 }
 .so-input {
-  @apply flex items-center justify-start rounded-lg;
+  @apply flex items-center justify-start rounded;
   transition: all 150ms ease-in-out;
 
   input {

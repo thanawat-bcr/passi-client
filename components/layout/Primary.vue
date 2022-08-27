@@ -1,6 +1,6 @@
 <template lang="pug">
 .primary
-  main(class="container py-4 min-h-screen bg-background flex flex-col items-center gap-y-6").border
+  main(class="container py-4 min-h-screen bg-background flex flex-col items-center").border
     slot
 </template>
 

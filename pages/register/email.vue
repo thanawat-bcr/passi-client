@@ -1,22 +1,22 @@
 <template lang="pug">
-LayoutPrimary.login
+LayoutPrimary.email
   .flex.flex-col.my-auto.items-center.gap-y-6
     img.w-20.h-20(src="/logo.png")
     SoForm(@submit="submit")
       SoInput.mb-8(v-model="user.email" rules="required|email" placeholder="Email" leading="envelope" type="email")
       SoInput.mb-8(v-model="user.password" rules="required" placeholder="******" leading="key" type="password")
       .flex.flex-col.gap-y-2
-        SoButton(type="submit" block) Login
-        .overline.text-primary-400.cursor-pointer(class="hover:underline") Forgot Password ?
-  .flex.items-center.gap-x-1
+        SoButton(type="submit" block) Register
+        //- .overline.text-primary-400.cursor-pointer(class="hover:underline") Forgot Password ?
+  //- .flex.items-center.gap-x-1
     .caption.text-gray-100 Not have an account?
-    .caption.text-primary-400.cursor-pointer(class="hover:underline" @click="$router.push('/register')") Create One.
+    .caption.text-primary-400.cursor-pointer(class="hover:underline") Create One.
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from '@nuxtjs/composition-api';
 
-const login = defineComponent({
+const email = defineComponent({
   setup() {
     const user = reactive({
       email: '',
@@ -34,9 +34,9 @@ const login = defineComponent({
   },
 });
 
-export default login;
+export default email;
 </script>
 
 <style lang="scss" scoped>
-// .login {}
+// .email {}
 </style>
