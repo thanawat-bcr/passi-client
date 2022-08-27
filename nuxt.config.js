@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'PetMall',
+    title: 'Passi',
     htmlAttrs: {
       lang: 'en'
     },
@@ -12,10 +12,10 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/logo/logo-color.svg' },
+      { rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
       { rel: "preconnect", href: "https://fonts.googleapis.com"},
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true},
-      { href: 'https://fonts.googleapis.com/css?family=Inter', rel:"stylesheet" },
+      { href: 'https://fonts.googleapis.com/css?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap', rel:"stylesheet" },
     ],
     script: [
       { src: "https://unpkg.com/phosphor-icons" },

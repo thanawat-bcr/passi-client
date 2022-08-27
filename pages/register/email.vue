@@ -10,17 +10,14 @@ LayoutPrimary.email
       SoInput.mb-8(v-model="user.password" rules="required" placeholder="******" leading="key" type="password")
       .flex.flex-col.gap-y-2
         SoButton(type="submit" block) Register
-        //- .overline.text-primary-400.cursor-pointer(class="hover:underline") Forgot Password ?
-  //- .flex.items-center.gap-x-1
-    .caption.text-gray-100 Not have an account?
-    .caption.text-primary-400.cursor-pointer(class="hover:underline") Create One.
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
 
 const email = defineComponent({
   setup() {
+    const router = useRouter();
     const user = reactive({
       email: '',
       password: '',
@@ -28,6 +25,8 @@ const email = defineComponent({
 
     const submit = () => {
       console.log(user);
+      router.push('/register/face');
+
     };
 
     return {
