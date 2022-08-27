@@ -13,12 +13,17 @@ LayoutPrimary.index
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, useRouter } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
   setup() {
+    const router = useRouter();
+
     const init = () => { console.log('Init!') };
-    const decode = (value: any) => { console.log('Decode!', value) };
+    const decode = (value: any) => {
+      console.log('Decode!', value);
+      router.push('/register/email');
+    };
 
     return {
       init,

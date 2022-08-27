@@ -1,5 +1,8 @@
 <template lang="pug">
 LayoutPrimary.email
+  .flex.gap-x-1.items-center.mr-auto
+    i.ph-caret-left.subtitle-2
+    .subtitle-2.text-gray-100.cursor-pointer(class="hover:underline" @click="$router.push('/register')") Back
   .flex.flex-col.my-auto.items-center.gap-y-6
     img.w-20.h-20(src="/logo.png")
     SoForm(@submit="submit")
