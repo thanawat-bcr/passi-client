@@ -77,9 +77,9 @@ const SoInput = defineComponent({
     });
 
     const inputColor = computed(() => {
-      let inactive = 'text-gray-300 bg-gray-100 border border-solid border-white'
-      let hover = 'text-gray-300 bg-gray-100 border border-solid border-gray-opacity-48'
-      let focus = 'text-gray-300 bg-gray-100 border border-solid border-green-800'
+      let inactive = 'text-primary-400 bg-white border border-solid border-gray-100'
+      let hover = 'text-primary-400 bg-white border border-solid border-primary-400'
+      let focus = 'text-primary-400 bg-white border border-solid border-primary-400'
       let disabled = 'text-gray-200 bg-gray-100'
 
       if (props.disabled) return disabled;
