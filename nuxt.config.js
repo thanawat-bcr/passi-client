@@ -53,9 +53,6 @@ export default {
   modules: [
     '@nuxtjs/axios',
   ],
-  axios: {
-    baseURL: 'https://petmall_api.sopet.co/',
-  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
