@@ -26,7 +26,6 @@ const email = defineComponent({
     const submit = () => {
       console.log(user);
       router.push('/register/face');
-
     };
 
     return {

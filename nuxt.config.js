@@ -19,7 +19,7 @@ export default {
     ],
     script: [
       { src: "https://unpkg.com/phosphor-icons" },
-      { src: "https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" },
+      // { src: "https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" },
     ],
   },
 

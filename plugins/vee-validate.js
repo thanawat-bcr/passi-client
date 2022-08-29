@@ -1,30 +1,24 @@
 import Vue from 'vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { required, email, max, max_value, min_value } from "vee-validate/dist/rules";
+import { required, email, digits, is } from "vee-validate/dist/rules";
 
 extend("required", {
   ...required,
-  message: 'จำเป็นต้องกรอก'
+  message: 'This Field is required'
 });
 
 extend("email", {
   ...email,
-  message: 'ต้องเป็นอีเมล'
+  message: 'This must be a valid email'
+});
+extend("digits", {
+  ...digits,
+  message: 'This must contains {length} number digits'
 });
 
-extend("max", {
-  ...max,
-  message: 'ต้องมีความยาวไม่เกิน {length} ตัวอักษร'
-});
-
-extend("maxValue", {
-  ...max_value,
-  message: 'ต้องไม่มากกว่า {max}'
-});
-
-extend("minValue", {
-  ...min_value,
-  message: 'ต้องไม่ต่ำกว่า {min}'
+extend("is", {
+  ...is,
+  message: 'Confirm PIN is not matched.'
 });
 
 Vue.component('ValidationProvider', ValidationProvider);
