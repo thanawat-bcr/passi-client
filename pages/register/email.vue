@@ -8,12 +8,17 @@ LayoutPrimary.email
     SoForm(@submit="submit")
       SoInput.mb-8(v-model="user.email" rules="required|email" placeholder="Email" leading="envelope" type="email")
       SoInput.mb-8(v-model="user.password" rules="required" placeholder="******" leading="key" type="password")
+      SoInput.mb-8(v-model="user.passwordConfirmed" :rules="confirmedRule" placeholder="******" leading="key" type="password")
       .flex.flex-col.gap-y-2
         SoButton(type="submit" block) Register
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import { computed, defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 const email = defineComponent({
   setup() {
@@ -21,15 +26,32 @@ const email = defineComponent({
     const user = reactive({
       email: '',
       password: '',
+      passwordConfirmed: '',
     });
+
+    const confirmedRule = computed(() => 'required|is:' + user.password)
 
     const submit = () => {
       console.log(user);
-      router.push('/register/face');
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, user.email, user.password)
+        .then(async (userCredential) => {
+          // Registered
+          const user = userCredential.user;
+          const token = await user.getIdToken();
+          console.log(token);
+          localStorage.setItem('token', token);
+          router.push('/register/face');
+        })
+        .catch((error) => {
+          // An error ocurred.
+          console.log(error);
+        });
     };
 
     return {
       user,
+      confirmedRule,
       submit,
     };
   },

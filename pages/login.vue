@@ -14,17 +14,34 @@ LayoutPrimary.login
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const login = defineComponent({
   setup() {
+    const router = useRouter();
     const user = reactive({
       email: '',
       password: '',
     });
 
-    const submit = () => {
-      console.log(user);
+    const submit = () => {const auth = getAuth();
+      signInWithEmailAndPassword(auth, user.email, user.password)
+        .then(async (userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          const token = await user.getIdToken();
+          console.log(token)
+          localStorage.setItem('token', token);
+          router.push('/');
+        })
+        .catch((error) => {
+          // An error ocurred.
+          console.log(error)
+        });
     };
 
     return {
