@@ -1,13 +1,13 @@
 <template lang="pug">
 .kairos.container.mx-auto
-  h1.text-primary-500.font-bold KAIROS API TESTER
+  h3.text-primary-500.font-bold KAIROS API TESTER
   .w-full.flex.flex-col.items-center.gap-y-4.my-4
     .w-64.h-64.bg-green-50.relative.border.rounded-lg
       input(type="file" @change="onChange" ref="fileInput").absolute.inset-0.opacity-0
       .w-64.h-64.bg-center.bg-cover(:style="{ 'background-image': `url(${img})` }")
     .flex.gap-x-2
       SoButton(v-for="s in subjects" :key="s" :mode="subject === s ? '' : 'outline'" @click="subject = s") {{ s }}
-  .w-full.grid.grid-cols-2.gap-x-2
+  .w-full.grid.gap-2(class="grid-cols-1 md:grid-cols-2")
     SoButton(block @click="onEnroll") Enroll
     SoButton(block @click="onVerify") Verify
 </template>
