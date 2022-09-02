@@ -1,14 +1,5 @@
 module.exports = {
   theme: {
-    screens: {
-      sm: '375px',
-    },
-    container: {
-      center: true,
-      screens: {
-        sm: '375px',
-      }
-    },
     extend: {
       colors: {
         gray: {

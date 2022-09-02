@@ -63,6 +63,8 @@ const camera = defineComponent({
 
       const context = (canvas.value as any).getContext('2d');
       context.drawImage((camera.value as any), 0, 0, 350, 262.5);
+
+      console.log(camera.value);
     }
 
     const downloadImage = () => {
