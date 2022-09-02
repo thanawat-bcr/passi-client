@@ -10,8 +10,8 @@
   .w-full.grid.gap-2(class="grid-cols-1 md:grid-cols-2")
     SoButton(block @click="onEnroll") Enroll
     SoButton(block @click="onVerify") Verify
-  .w-full
-    h4 {{ kairosResult }}
+  .w-full.mt-4
+    h3.text-primary-500.text-center {{ kairosResult }}
 </template>
 
 <script>
@@ -52,7 +52,7 @@ const kairos = defineComponent({
       try {
         const res = await axios.post('/kairos/enroll', formData)
         console.log('data:', res.data)
-        kairosResult.value = res.data.status
+        kairosResult.value = "Enroll: " + res.data.status
       }catch(err) {
         console.log(err)
       }
@@ -67,7 +67,7 @@ const kairos = defineComponent({
       try {
         const res = await axios.post('/kairos/verify', formData)
         console.log('data:', res.data)
-        kairosResult.value = res.data.status
+        kairosResult.value = "Verify: " + res.data.status
       }catch(err) {
         console.log(err)
       }
