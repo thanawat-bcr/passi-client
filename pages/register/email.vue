@@ -19,6 +19,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { axios } from '@/use/useAxios';
 
 const email = defineComponent({
   setup() {
@@ -38,10 +39,15 @@ const email = defineComponent({
         .then(async (userCredential) => {
           // Registered
           const user = userCredential.user;
-          const token = await user.getIdToken();
-          console.log(token);
-          localStorage.setItem('token', token);
-          router.push('/register/face');
+          const res = await axios.post('/user/register', {
+            user_id: user.uid,
+            passport_no: 'AB1325944'
+          })
+          console.log(res)
+          // const token = await user.getIdToken();
+          // console.log(token);
+          // localStorage.setItem('token', token);
+          // router.push('/register/face');
         })
         .catch((error) => {
           // An error ocurred.
