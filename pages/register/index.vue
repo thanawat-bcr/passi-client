@@ -22,7 +22,7 @@ const index = defineComponent({
     const init = () => { console.log('Init!') };
     const decode = (value: any) => {
       console.log('Decode!', value);
-      router.push('/register/email');
+      router.push('/register/email/' + value );
     };
 
     return {
