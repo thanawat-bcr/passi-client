@@ -10,7 +10,7 @@ LayoutPrimary.email
       SoInput.mb-8(v-model="user.password" rules="required" placeholder="******" leading="key" type="password")
       SoInput.mb-8(v-model="user.passwordConfirmed" :rules="confirmedRule" placeholder="******" leading="key" type="password")
       .flex.flex-col.gap-y-2
-        SoButton(type="submit" block) Register
+        SoButton(type="submit" block) Register {{ $route.query.id }}
 </template>
 
 <script lang="ts">
@@ -26,7 +26,7 @@ const email = defineComponent({
     const router = useRouter();
     const route = useRoute();
 
-    const passport = ref(route.value.params.id);
+    const passport = ref(route.value.query.id);
 
     const user = reactive({
       email: '',
@@ -48,9 +48,10 @@ const email = defineComponent({
             passport_no: passport.value
           })
           console.log('registered', res)
-          // const token = await user.getIdToken();
-          // console.log(token);
-          // localStorage.setItem('token', token);
+          // TOKEN
+          const token = await user.getIdToken();
+          localStorage.setItem('token', token);
+
           // router.push('/register/face');
         })
         .catch((error) => {

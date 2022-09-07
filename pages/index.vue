@@ -1,35 +1,83 @@
 <template lang="pug">
-LayoutPrimary
-  .flex.flex-col.w-full.my-auto.items-center
-    img.w-32.h-32(src="/logo.png")
-    h1.text-primary-500 PASSI
-    SoButton.mt-4(block @click="$router.push('/login')") Login
-    SoButton.mt-4(block mode="outline" @click="$router.push('/register')") Register
-    SoButton.mt-4(block @click="$router.push('/kairos')") KAIROS
+LayoutPrimary.login
+  .flex.flex-col.my-auto.items-center.gap-y-6
+    img.w-20.h-20(src="/logo.png")
+    SoForm(@submit="submit")
+      SoInput.mb-8(v-model="user.email" rules="required|email" placeholder="Email" leading="envelope" type="email")
+      SoInput.mb-8(v-model="user.password" rules="required" placeholder="******" leading="key" type="password")
+      .flex.flex-col.gap-y-2
+        SoButton(type="submit" block) Login
+        .overline.text-primary-400.cursor-pointer(class="hover:underline" @click="forgetPassword") Forgot Password ?
+  .flex.items-center.gap-x-1
+    .caption.text-gray-100 Not have an account?
+    .caption.text-primary-400.cursor-pointer(class="hover:underline" @click="$router.push('/register')") Create One.
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import {
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { axios } from '@/use/useAxios';
 
-const index = defineComponent({
+const login = defineComponent({
   setup() {
-    const testAPI = async () => {
-      // const res = await axios.get('https://catfact.ninja/fact');
-      const res = await axios.get('/test');
-      console.log('API', res);
+    const router = useRouter();
+    const user = reactive({
+      email: '',
+      password: '',
+    });
 
+    const submit = () => {const auth = getAuth();
+      signInWithEmailAndPassword(auth, user.email, user.password)
+        .then(async (userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          try {
+            const res = await axios.post('/user/login', {
+              user_id: user.uid,
+            })
+            console.log('logged in', res)
+            // TOKEN
+            const token = await user.getIdToken();
+            localStorage.setItem('token', token);
+          } catch (err) {
+            console.log('err', err)
+          }
+
+          // router.push('/');
+        })
+        .catch((error) => {
+          // An error ocurred.
+          console.log(error)
+        });
+    };
+
+    const forgetPassword = () => {
+      console.log('FORGET PASSWORD!')
+      // const auth = getAuth();
+      // sendPasswordResetEmail(auth, 'tutor34676@gmail.com')
+      //   .then(() => {
+      //     console.log('success');
+      //   })
+      //   .catch((error) => {
+      //     console.log(error)
+      //   });
     }
 
     return {
-      testAPI
-    }
-  }
+      user,
+      submit,
+      forgetPassword,
+    };
+  },
 });
 
-export default index;
+export default login;
 </script>
 
-<style lang="scss">
-// .index {}
+<style lang="scss" scoped>
+// .login {}
 </style>
