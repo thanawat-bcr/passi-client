@@ -12,7 +12,7 @@ LayoutPrimary.face
       .flex.gap-x-2
         i.ph-lightbulb.body-1.text-primary-500.mt-1
         .flex.flex-col
-          .subtitle-1.text-primary-500 Good Lighting {{ passport }}
+          .subtitle-1.text-primary-500 Good Lighting
           .caption.text-gray-100 Make sure you are in a well lit area and both ears are uncovered.
       .flex.gap-x-2
         i.ph-smiley.body-1.text-primary-500.mt-1
@@ -24,12 +24,13 @@ LayoutPrimary.face
         .flex.flex-col
           .subtitle-1.text-primary-500 Not Ready ?
           .caption.text-gray-100 Skip and come back to redo process again later when you are ready.
-      .flex.gap-x-2.w-full
+      .flex.flex-col.gap-y-2.w-full
         SoButton(block @click="onVerify" leading="circle-wavy-check") Verify
+        SoButton(block mode="outline" @click="onSignOut" leading="sign-out") Sign Out
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, ref, useRouter } from '@nuxtjs/composition-api';
 import { axios } from '@/use/useAxios';
 
 const GALLERY_NAME = 'passi-test';
@@ -39,6 +40,8 @@ const face = defineComponent({
     const images = ref(null);
     const img = ref(null);
     const fileInput = ref('');
+
+    const router = useRouter();
 
     const passport = ref('');
     onMounted(async () => {
@@ -81,6 +84,11 @@ const face = defineComponent({
       }
     }
 
+    const onSignOut = () => {
+      localStorage.clear();
+      router.push('/')
+    }
+
     return {
       passport,
 
@@ -89,6 +97,7 @@ const face = defineComponent({
 
       onChange,
       onVerify,
+      onSignOut
     }
   },
 });
