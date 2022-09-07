@@ -35,16 +35,21 @@ const login = defineComponent({
         .then(async (userCredential) => {
           // Signed in 
           const user = userCredential.user;
+          // TOKEN
+          const token = await user.getIdToken();
+          localStorage.setItem('token', token);
+          localStorage.setItem('id', user.uid);
           try {
             const res = await axios.post('/user/login', {
               user_id: user.uid,
             })
-            console.log('logged in', res)
-            // TOKEN
-            const token = await user.getIdToken();
-            localStorage.setItem('token', token);
-          } catch (err) {
+            router.push('/success')
+          } catch (err: any) {
             console.log('err', err)
+            const { error } = err.data;
+            if (error === 'NO_USER') router.push('/register');
+            if (error === 'NO_FACE_VERIFIED') router.push('/register/face');
+            if (error === 'NO_PIN_CREATED') router.push('/register/pin');
           }
 
           // router.push('/');

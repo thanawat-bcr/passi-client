@@ -29,7 +29,7 @@ const kairos = defineComponent({
 
     const kairosResult = ref('');
 
-    const subjects = ref(['tutorism', 'fluke', 'jimmy', 'james']);
+    const subjects = ref(['tutorism', 'fluke', 'jimmy', 'AB1325944']);
     const subject = ref('tutorism');
 
     const onChange = (e) => {
