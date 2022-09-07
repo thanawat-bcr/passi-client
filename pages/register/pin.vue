@@ -10,13 +10,16 @@ LayoutPrimary.pin
         SoInput.mb-8(v-model="pin.confirmed" :rules="rule" placeholder="******" leading="key" type="number")
         .flex.flex-col.gap-y-2
           SoButton(type="submit" block) Submit
+          SoButton(block mode="outline" @click="onSignOut" leading="sign-out") Sign Out
 </template>
 
 <script lang="ts">
+import { useRouter } from '@nuxtjs/composition-api';
 import { computed, defineComponent, reactive, ref } from '@vue/composition-api';
 
 const pin = defineComponent({
   setup() {
+    const router = useRouter();
     const pin = reactive({
       value: '',
       confirmed: '',
@@ -28,10 +31,17 @@ const pin = defineComponent({
       console.log(pin.value);
     };
 
+
+    const onSignOut = () => {
+      localStorage.clear();
+      router.push('/')
+    }
+
     return {
       pin,
       rule,
       submit,
+      onSignOut,
     };
   },
 });

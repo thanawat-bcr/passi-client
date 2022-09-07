@@ -10,11 +10,11 @@ LayoutPrimary.email
       SoInput.mb-8(v-model="user.password" rules="required" placeholder="******" leading="key" type="password")
       SoInput.mb-8(v-model="user.passwordConfirmed" :rules="confirmedRule" placeholder="******" leading="key" type="password")
       .flex.flex-col.gap-y-2
-        SoButton(type="submit" block) Register
+        SoButton(type="submit" block) Register {{ $route.query.id }}
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import { computed, defineComponent, reactive, ref, useRoute, useRouter } from '@nuxtjs/composition-api';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -24,6 +24,10 @@ import { axios } from '@/use/useAxios';
 const email = defineComponent({
   setup() {
     const router = useRouter();
+    const route = useRoute();
+
+    const passport = ref(route.value.query.id);
+
     const user = reactive({
       email: '',
       password: '',
@@ -33,7 +37,7 @@ const email = defineComponent({
     const confirmedRule = computed(() => 'required|is:' + user.password)
 
     const submit = () => {
-      console.log(user);
+      // console.log(user);
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, user.email, user.password)
         .then(async (userCredential) => {
@@ -41,12 +45,13 @@ const email = defineComponent({
           const user = userCredential.user;
           const res = await axios.post('/user/register', {
             user_id: user.uid,
-            passport_no: 'AB1325944'
+            passport_no: passport.value
           })
-          console.log(res)
-          // const token = await user.getIdToken();
-          // console.log(token);
-          // localStorage.setItem('token', token);
+          console.log('registered', res)
+          // TOKEN
+          const token = await user.getIdToken();
+          localStorage.setItem('token', token);
+
           // router.push('/register/face');
         })
         .catch((error) => {

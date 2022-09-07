@@ -10,6 +10,7 @@
   .w-full.grid.gap-2(class="grid-cols-1 md:grid-cols-2")
     SoButton(block @click="onEnroll") Enroll
     SoButton(block @click="onVerify") Verify
+    SoButton(block @click="onTest") Test
   .w-full.mt-4
     h3.text-primary-500.text-center {{ kairosResult }}
 </template>
@@ -28,7 +29,7 @@ const kairos = defineComponent({
 
     const kairosResult = ref('');
 
-    const subjects = ref(['tutorism', 'fluke', 'jimmy', 'james']);
+    const subjects = ref(['tutorism', 'fluke', 'jimmy', 'AB1325944']);
     const subject = ref('tutorism');
 
     const onChange = (e) => {
@@ -73,6 +74,17 @@ const kairos = defineComponent({
       }
     }
 
+    const onTest = async () => {
+      const formData = new FormData();
+      formData.append('image', images.value)
+      try {
+        const res = await axios.post('/image', formData)
+        console.log('data:', res.data)
+      }catch(err) {
+        console.log(err)
+      }
+    }
+
     return {
       subjects,
       subject,
@@ -85,6 +97,7 @@ const kairos = defineComponent({
 
       onEnroll,
       onVerify,
+      onTest,
     }
   },
 });
