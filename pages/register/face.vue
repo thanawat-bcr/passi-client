@@ -2,8 +2,8 @@
 LayoutPrimary.face
   .flex.flex-col.my-auto.items-center.gap-y-3
     img.w-20.h-20(src="/logo.png")
-    h2.text-primary-500 Take a Selfie!
-    .body-2.text-gray-100.text-center Please take a selfie to compare with your passport photo.
+    h2.text-primary-500 {{ title }}
+    .body-2.text-gray-100.text-center {{ subtitle }}
     .flex.flex-col.gap-y-4.items-start
       .w-48.h-48.mx-auto.relative.shadow-lg
         input(type="file" @change="onChange" ref="fileInput").absolute.inset-0.opacity-0.z-30
@@ -40,6 +40,9 @@ const face = defineComponent({
     const images = ref(null);
     const img = ref(null);
     const fileInput = ref('');
+
+    const title = ref('Take a Selfie!');
+    const subtitle = ref('Please take a selfie to compare with your passport photo.');
 
     const router = useRouter();
 
@@ -78,8 +81,10 @@ const face = defineComponent({
       console.log('Verify:', passport.value)
       try {
         const res = await axios.post('/kairos/verify', formData)
-        console.log('data:', res.data)
+        router.push('/register/pin')
       }catch(err) {
+        title.value = 'Verification Failed!'
+        subtitle.value = 'Please try again!'
         console.log(err)
       }
     }
@@ -94,6 +99,9 @@ const face = defineComponent({
 
       img,
       fileInput,
+
+      title,
+      subtitle,
 
       onChange,
       onVerify,
