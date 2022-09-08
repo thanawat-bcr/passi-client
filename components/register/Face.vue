@@ -33,8 +33,6 @@ section.face
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { axios } from '@/use/useAxios';
 
-const GALLERY_NAME = 'passi-test';
-
 const face = defineComponent({
   props: {
     passport: {
@@ -66,7 +64,6 @@ const face = defineComponent({
       const formData = new FormData();
       formData.append('image', images.value)
       formData.append('subject_id', props.passport)
-      formData.append('gallery_name', GALLERY_NAME)
       console.log('Verify:', props.passport)
       try {
         const res = await axios.post('/kairos/verify', formData)

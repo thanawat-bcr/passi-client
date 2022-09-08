@@ -18,6 +18,7 @@ section.flex.flex-col.gap-y-4
 
 <script lang="ts">
 import { computed, defineComponent, reactive } from '@nuxtjs/composition-api';
+import { axios } from '@/use/useAxios';
 
 const email = defineComponent({
   setup(props: any, ctx: any) {
@@ -29,8 +30,14 @@ const email = defineComponent({
 
     const confirmedRule = computed(() => 'required|is:' + user.password)
 
-    const submit = () => {
-      ctx.emit('onEmailHandler', { email: user.email, password: user.password});
+    const submit = async () => {
+      try {
+        const res = await axios.post('/user/email', { email: user.email })
+        ctx.emit('onEmailHandler', { email: user.email, password: user.password});
+      }catch(err) {
+        console.log(err)
+      }
+
     };
 
     return {

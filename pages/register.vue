@@ -8,6 +8,7 @@ LayoutRegister.index(:current="step")
 
 <script lang="ts">
 import { defineComponent, reactive, ref, useRouter } from '@nuxtjs/composition-api';
+import { axios } from '@/use/useAxios';
 
 const index = defineComponent({
   setup() {
@@ -42,10 +43,21 @@ const index = defineComponent({
     };
 
     // STEP 4
-    const onPinHandler = (value: any) => {
+    const onPinHandler = async (value: any) => {
       user.pin = value.pin
       console.log('onPinHandler!', user.passport, user.email, user.password, user.pin);
-      step.value = 3;
+      try {
+        const res = await axios.post('/user/register', {
+          passport: user.passport, 
+          email: user.email, 
+          password: user.password, 
+          pin: user.pin
+        })
+        console.log(res.data)
+        router.push('/success')
+      }catch(err) {
+        console.log(err)
+      }
     };
 
     return {
