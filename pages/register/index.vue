@@ -1,33 +1,62 @@
 <template lang="pug">
-LayoutRegister.index(:current="2")
-  .flex.flex-col.my-auto.items-center.gap-y-6
-    img.w-20.h-20(src="/logo.png")
-    h2.text-primary-500 Scan QR Code
-    .w-64.h-64.border
-      qrcode-stream(@init="init" @decode="decode" :camera="'auto'")
-    .body-2.text-primary-500.text-center Please scan your QR Code here to register your passport into our system.
-  .flex.items-center.gap-x-1
-    .caption.text-gray-100 Already have an account?
-    .caption.text-primary-400.cursor-pointer(class="hover:underline" @click="$router.push('/')") Sign in.
-  
+LayoutRegister.index(:current="step")
+  RegisterQrCode(v-if="step === 0" @onQrHandler="onQrHandler")
+  RegisterFace(v-if="step === 1" :passport="user.passport" @onFaceHandler="onFaceHandler")
+  RegisterEmail(v-if="step === 2" @onEmailHandler="onEmailHandler")
+  RegisterPin(v-if="step === 3" @onPinHandler="onPinHandler")
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref, useRouter } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
   setup() {
     const router = useRouter();
+    const step = ref(3);
+    const user = reactive({
+      passport: null,
+      email: null,
+      password: null,
+      pin: null,
+    })
 
-    const init = () => { console.log('Init!') };
-    const decode = (value: any) => {
-      console.log('Decode!', value);
-      router.push({ path: '/register/email', query: { id: value }} );
+    // STEP 1
+    const onQrHandler = (value: any) => {
+      console.log('DeconQrHandlerode!', value);
+      user.passport = value
+      step.value = 1;
+    };
+
+    // STEP 2
+    const onFaceHandler = () => {
+      console.log('onFaceHandler!');
+      step.value = 2;
+    };
+
+    // STEP 3
+    const onEmailHandler = (value: any) => {
+      user.email = value.email
+      user.password = value.password
+      console.log('onEmailHandler!', user.passport, user.email, user.password);
+      step.value = 3;
+    };
+
+    // STEP 3
+    const onPinHandler = (value: any) => {
+      user.pin = value.pin
+      console.log('onPinHandler!', user.passport, user.email, user.password, user.pin);
+      step.value = 3;
     };
 
     return {
-      init,
-      decode,
+      step,
+
+      user,
+
+      onQrHandler,
+      onFaceHandler,
+      onEmailHandler,
+      onPinHandler,
     };
   },
 });
