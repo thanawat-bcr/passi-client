@@ -1,6 +1,6 @@
 // Reflect the token config in plugin axios.ts, but for composition API
 
-import { default as axiosLib, AxiosRequestConfig } from 'axios';
+import { default as axiosLib } from 'axios';
 // import { useAxios as vueUseUseAxios } from '@vueuse/integrations';
 
 const BASE_URL = 'http://localhost:8080/'
