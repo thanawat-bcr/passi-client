@@ -12,7 +12,7 @@ import { defineComponent, reactive, ref, useRouter } from '@nuxtjs/composition-a
 const index = defineComponent({
   setup() {
     const router = useRouter();
-    const step = ref(3);
+    const step = ref(0);
     const user = reactive({
       passport: null,
       email: null,
@@ -22,7 +22,7 @@ const index = defineComponent({
 
     // STEP 1
     const onQrHandler = (value: any) => {
-      console.log('DeconQrHandlerode!', value);
+      console.log('onQrHandler!', value);
       user.passport = value
       step.value = 1;
     };
@@ -41,7 +41,7 @@ const index = defineComponent({
       step.value = 3;
     };
 
-    // STEP 3
+    // STEP 4
     const onPinHandler = (value: any) => {
       user.pin = value.pin
       console.log('onPinHandler!', user.passport, user.email, user.password, user.pin);
