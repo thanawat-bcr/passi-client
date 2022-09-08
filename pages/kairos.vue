@@ -78,7 +78,7 @@ const kairos = defineComponent({
       const formData = new FormData();
       formData.append('image', images.value)
       try {
-        const res = await axios.post('/image', formData)
+        const res = await axios.post('/image/file', formData)
         console.log('data:', res.data)
       }catch(err) {
         console.log(err)
