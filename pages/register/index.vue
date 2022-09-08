@@ -1,5 +1,5 @@
 <template lang="pug">
-LayoutPrimary.index
+LayoutRegister.index(:current="2")
   .flex.flex-col.my-auto.items-center.gap-y-6
     img.w-20.h-20(src="/logo.png")
     h2.text-primary-500 Scan QR Code
