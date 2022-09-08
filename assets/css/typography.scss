@@ -1,6 +1,6 @@
 // @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100;200;300;400;500;600;700;800;900&display=swap');
-body { font-family: 'Inter', 'Prompt', sans-serif; }
+body { font-family: 'Kanit', 'Roboto', sans-serif; }
 
 h1 { font-size: 36px; font-weight: 700; }
 h2 { font-size: 32px; font-weight: 700; }
@@ -9,10 +9,10 @@ h3 { font-size: 24px; font-weight: 700; }
 .subtitle-2 { font-size: 16px; font-weight: 600; }
 .body-1 { font-size: 20px; font-weight: 400; }
 .body-2 { font-size: 16px; font-weight: 400; }
-.button { font-size: 16px; font-weight: 500; font-family: 'Prompt', sans-serif; }
-.caption { font-size: 14px; font-weight: 300; font-family: 'Prompt', sans-serif; }
-.overline { font-size: 11px; font-weight: 300; font-family: 'Prompt', sans-serif; }
+.button { font-size: 16px; font-weight: 500; font-family: 'Roboto', sans-serif; }
+.caption { font-size: 14px; font-weight: 300; font-family: 'Roboto', sans-serif; }
+.overline { font-size: 11px; font-weight: 300; font-family: 'Roboto', sans-serif; }
 
 .container {
-  @apply flex flex-col items-center p-6;
+  @apply flex flex-col p-2 min-h-screen bg-background;
 }
