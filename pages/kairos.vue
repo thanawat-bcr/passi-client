@@ -29,8 +29,8 @@ const kairos = defineComponent({
 
     const kairosResult = ref('');
 
-    const subjects = ref(['tutorism', 'fluke', 'jimmy', 'AB1325944']);
-    const subject = ref('tutorism');
+    const subjects = ref(['AB1325944','AA8298121']);
+    const subject = ref('AB1325944');
 
     const onChange = (e) => {
       images.value = e.target.files[0];
@@ -48,7 +48,6 @@ const kairos = defineComponent({
       const formData = new FormData();
       formData.append('image', images.value)
       formData.append('subject_id', subject.value)
-      formData.append('gallery_name', GALLERY_NAME)
       console.log('Enroll:', subject.value)
       try {
         const res = await axios.post('/kairos/enroll', formData)
