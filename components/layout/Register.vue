@@ -22,7 +22,7 @@ const primary = defineComponent({
     },
   },
   setup() {
-    const steps = ref(['QR CODE', 'FACE VERIFY', 'EMAIL', 'PIN'])
+    const steps = ref(['QR Code', 'Face Verification', 'Email & Password'])
 
     return {
       steps

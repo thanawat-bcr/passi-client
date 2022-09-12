@@ -15,11 +15,6 @@ LayoutPrimary.login
 
 <script lang="ts">
 import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
-import {
-  getAuth,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import { axios } from '@/use/useAxios';
 
 const login = defineComponent({
@@ -33,7 +28,7 @@ const login = defineComponent({
     const submit = async () => {
       console.log(user)
       try {
-        const res = await axios.post('/user/login', {
+        const res = await axios.post('/auth/login', {
           email: user.email, 
           password: user.password, 
         })
