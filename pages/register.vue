@@ -43,10 +43,12 @@ const index = defineComponent({
           email: user.email, 
           password: user.password, 
         })
-        console.log(res.data)
+        const { token } = res.data
+        localStorage.setItem('token', token)
+
         router.push('/success')
       }catch(err) {
-        console.log(err)
+        alert(err)
       }
     };
 

@@ -61,13 +61,12 @@ const face = defineComponent({
       formData.append('passport', props.passport)
       console.log('Verify:', props.passport)
       try {
-        const res = await axios.post('/kairos/verify', formData)
-        // router.push('/register/pin')
+        await axios.post('/kairos/verify', formData)
         ctx.emit('onFaceHandler')
       }catch(err) {
         title.value = 'Verification Failed!'
         subtitle.value = 'Please try again!'
-        console.log(err)
+        alert(err)
       }
     }
 

@@ -12,12 +12,18 @@ section
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
+import { axios } from '@/use/useAxios';
 
 const index = defineComponent({
   setup(props: any, ctx: any) {
     const init = () => { console.log('Init!') };
-    const decode = (value: any) => {
-      ctx.emit('onQrHandler', value)
+    const decode = async (value: any) => {
+      try {
+        await axios.post('/auth/qr', { passport: value })
+        ctx.emit('onQrHandler', value)
+      }catch(err) {
+        alert(err)
+      }
     };
 
     return {
