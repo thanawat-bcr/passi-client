@@ -1,61 +1,67 @@
 <template lang="pug">
-LayoutPrimary.login.justify-center
-  .flex.flex-col.items-center.gap-y-6
-    img.w-20.h-20(src="/logo.png")
-    SoForm(@submit="submit")
-      SoInput.mb-8(v-model="user.email" rules="required|email" placeholder="Email" leading="envelope" type="email")
-      SoInput.mb-8(v-model="user.password" rules="required" placeholder="******" leading="key" type="password")
-      .flex.flex-col.gap-y-2
-        SoButton(type="submit" block) Login
-        //- .overline.text-primary-400.cursor-pointer(class="hover:underline" @click="forgetPassword") Forgot Password ?
-    .flex.items-center.gap-x-1
-      .caption.text-gray-100 Not have an account?
-      .caption.text-primary-400.cursor-pointer(class="hover:underline" @click="$router.push('/register')") Create One.
+LayoutPrimary.index
+  .flex.flex-col.gap-y-2
+    .flex.flex-col.gap-y-12.items-center.my-6
+      img.w-64.h-64(:src="qrSrc")
+      h2 {{ countdown }}
+      SoButton(@click="onLogout") Logout
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+<script lang="js">
+import { computed, defineComponent, onMounted, onBeforeUnmount, ref, useRouter } from '@nuxtjs/composition-api';
 import { axios } from '@/use/useAxios';
 
-const login = defineComponent({
+const index = defineComponent({
   setup() {
-    const router = useRouter();
-    const user = reactive({
-      email: '',
-      password: '',
-    });
+    const router = useRouter()
+    const MAX_TIMER = 5;
+    const qrSrc = ref('');
+    const timer = ref(null)
+    const countdown = ref(MAX_TIMER);
 
-    const submit = async () => {
-      console.log(user)
-      try {
-        const res = await axios.post('/auth/login', {
-          email: user.email, 
-          password: user.password, 
-        })
-        const { token } = res.data
-        localStorage.setItem('token', token)
-
-        router.push('/success')
-      }catch(err: any) {
-        console.log(err)
+    const countDownTimer = () => {
+      if (countdown.value > 0) {
+        setTimeout(() => {
+          countdown.value -= 1
+          countDownTimer()
+        }, 1000);
+      } else {
+        countdown.value = MAX_TIMER
       }
-    };
-
-    const forgetPassword = () => {
-      console.log('FORGET PASSWORD!')
+    }
+    const getQrSrc = async () => {
+      const res = await axios.get('/qr')
+      qrSrc.value = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${res.data.token}`
+      console.log('INTERVAL CHECK')
+      countDownTimer()
     }
 
+    onMounted(async () => {
+      const token = localStorage.getItem('token')
+      if (!token) router.push('/login')
+      else timer.value = setInterval(getQrSrc, MAX_TIMER*1000)     
+    })
+
+    onBeforeUnmount(() => clearInterval(timer.value))
+
+    const onLogout = () => {
+      localStorage.clear();
+      router.push('/login')
+    }
+
+
     return {
-      user,
-      submit,
-      forgetPassword,
-    };
+      qrSrc,
+      countdown,
+
+      onLogout,
+    }
   },
 });
 
-export default login;
+export default index;
 </script>
 
 <style lang="scss" scoped>
-// .login {}
+// .index {}
 </style>

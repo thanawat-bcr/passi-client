@@ -7,7 +7,7 @@ section
     .body-2.text-primary-500.text-center Please scan your QR Code here to register your passport into our system.
     .flex.items-center.gap-x-1
       .caption.text-gray-100 Already have an account?
-      .caption.text-primary-400.cursor-pointer(class="hover:underline" @click="$router.push('/')") Sign in.
+      .caption.text-primary-400.cursor-pointer(class="hover:underline" @click="$router.push('/login')") Sign in.
 </template>
 
 <script lang="ts">

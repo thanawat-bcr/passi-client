@@ -46,7 +46,7 @@ const index = defineComponent({
         const { token } = res.data
         localStorage.setItem('token', token)
 
-        router.push('/success')
+        router.push('/')
       }catch(err) {
         alert(err)
       }
