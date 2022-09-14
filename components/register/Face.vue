@@ -58,7 +58,7 @@ const face = defineComponent({
     const onVerify = async () => {
       const formData = new FormData();
       formData.append('image', images.value)
-      formData.append('subject_id', props.passport)
+      formData.append('passport', props.passport)
       console.log('Verify:', props.passport)
       try {
         const res = await axios.post('/kairos/verify', formData)
