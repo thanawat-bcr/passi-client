@@ -1,7 +1,7 @@
 <template lang="pug">
-.primary
-  main(class="container mx-auto py-4 min-h-screen bg-background flex flex-col items-center")
-    slot
+.primary.container.mx-auto.py-6.border
+  main.px-4
+    slot.flex.flex-col.items-center
 </template>
 
 <script lang="ts">

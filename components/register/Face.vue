@@ -19,11 +19,6 @@ section.face
         .flex.flex-col
           .subtitle-1.text-primary-500 Look Straight
           .caption.text-gray-100 Hold your phone at eye level and look straight to the camera.
-      .flex.gap-x-2
-        i.ph-fast-forward.body-1.text-primary-500.mt-1
-        .flex.flex-col
-          .subtitle-1.text-primary-500 Not Ready ?
-          .caption.text-gray-100 Skip and come back to redo process again later when you are ready.
       .flex.flex-col.gap-y-2.w-full.mt-4
         SoButton(block @click="onVerify" leading="circle-wavy-check") Verify
 
