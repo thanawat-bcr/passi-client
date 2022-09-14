@@ -32,7 +32,6 @@ const email = defineComponent({
 
     const submit = async () => {
       try {
-        const res = await axios.post('/user/email', { email: user.email })
         ctx.emit('onEmailHandler', { email: user.email, password: user.password});
       }catch(err) {
         console.log(err)
