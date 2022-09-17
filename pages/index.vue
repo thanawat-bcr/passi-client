@@ -14,7 +14,7 @@ import { axios } from '@/use/useAxios';
 const index = defineComponent({
   setup() {
     const router = useRouter()
-    const MAX_TIMER = 30;
+    const MAX_TIMER = ref(0);
     const qrSrc = ref('');
     const timer = ref(null)
     const countdown = ref(MAX_TIMER);
@@ -26,11 +26,13 @@ const index = defineComponent({
           countDownTimer()
         }, 1000);
       } else {
-        countdown.value = MAX_TIMER
+        getQrSrc()
+        countdown.value = MAX_TIMER.value
       }
     }
     const getQrSrc = async () => {
-      const res = await axios.get('/qr')
+      const res = await axios.get('/user/qr')
+      MAX_TIMER.value = res.data.timer
       qrSrc.value = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${res.data.token}`
       countDownTimer()
     }
@@ -39,14 +41,11 @@ const index = defineComponent({
       const token = localStorage.getItem('token')
       if (!token) router.push('/login')
       else {
-        const res = await axios.get('/qr')
-        qrSrc.value = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${res.data.token}`
-        countDownTimer();
-        timer.value = setInterval(getQrSrc, MAX_TIMER*1000)     
+        await getQrSrc()     
       }
     })
 
-    onBeforeUnmount(() => clearInterval(timer.value))
+    // onBeforeUnmount(() => clearInterval(timer.value))
 
     const onLogout = () => {
       localStorage.clear();
