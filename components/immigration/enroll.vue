@@ -29,7 +29,7 @@ section
           .body-2.text-primary-500 Surname
           SoInput.mb-6(v-model="user.surname" rules="required" placeholder="Surname")
           .flex.flex-col.gap-y-2.mt-10
-            SoButton(block type="submit" leading="smiley-wink") Enroll
+            SoButton(block type="submit" leading="smiley-wink" :disabled="loading") Enroll
 
 </template>
 
@@ -42,6 +42,8 @@ const enroll = defineComponent({
     const images = ref(null);
     const img = ref(null);
     const fileInput = ref('');
+
+    const loading = ref(false);
 
     const onChange = (e) => {
       images.value = e.target.files[0];
@@ -67,9 +69,11 @@ const enroll = defineComponent({
       formData.append('surname', user.surname)
       console.log('Ennroll:', user.name)
       try {
+        loading.value = true;
         const res = await axios.post('/kairos/enroll', formData)
         console.log(res.data)
         ctx.emit('onEnroll', res.data.passport)
+        loading.value = false;
       }catch(err) {
         console.log(err)
       }
@@ -78,6 +82,7 @@ const enroll = defineComponent({
     return {
       img,
       fileInput,
+      loading,
 
       user,
 

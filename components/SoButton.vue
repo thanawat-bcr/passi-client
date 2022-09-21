@@ -62,5 +62,8 @@ export default SoButton;
 .so-button {
   @apply flex items-center justify-center rounded;
   transition: all 200ms ease-in-out;
+  &:disabled {
+    background: gray;
+  }
 }
 </style>

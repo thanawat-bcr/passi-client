@@ -7,7 +7,7 @@ section
       .subtitle-1.text-gray-100.text-center {{ passport_no}}
     .flex.flex-col.gap-y-4.items-center
       img.w-64.h-64.p-4.shadow-xl(:src="qrSrc")
-      SoButton(block @click="$emit('close')") Close
+      SoButton(block @click="$router.push('/immigration')") Close
   
 </template>
 
