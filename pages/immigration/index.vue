@@ -20,7 +20,7 @@ LayoutPrimary.qr
       .col-span-2.body-2 {{ passport.name}}
       .col-span-2.body-2 {{ passport.surname}}
       .col-span-1.body-1.flex.justify-center
-        i.ph-envelope-simple(v-if="passport.id")
+        i.ph-envelope-simple(v-if="passport.email")
         i.ph-x-circle(v-else)
 </template>
 
@@ -37,7 +37,7 @@ const qr = defineComponent({
       passports.value = res.data.passports.reverse()
     })
 
-    const qrSrc = computed(() => `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${passports.value[selectedIndex.value]?.passport_no}`);
+    const qrSrc = computed(() => `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${passports.value[selectedIndex.value]?.id}`);
 
     return {
       passports,
