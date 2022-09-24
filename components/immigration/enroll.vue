@@ -72,7 +72,7 @@ const enroll = defineComponent({
         loading.value = true;
         const res = await axios.post('/kairos/enroll', formData)
         console.log(res.data)
-        ctx.emit('onEnroll', res.data.passport)
+        ctx.emit('onEnroll', res.data)
         loading.value = false;
       }catch(err) {
         console.log(err)

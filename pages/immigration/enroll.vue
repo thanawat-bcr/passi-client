@@ -1,7 +1,7 @@
 <template lang="pug">
 LayoutPrimary.index
-  ImmigrationEnroll(v-if="!passport_no" @onEnroll="onEnroll")
-  ImmigrationQrcode(v-else :passport_no="passport_no")
+  ImmigrationEnroll(v-if="!passport" @onEnroll="onEnroll")
+  ImmigrationQrcode(v-else :passport="passport")
 </template>
 
 <script lang="ts">
@@ -9,13 +9,14 @@ import { defineComponent, ref } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
   setup() {
-    const passport_no = ref('');
-    const onEnroll = (passport: string) => {
-      passport_no.value = passport
+    const passport = ref(null);
+    const onEnroll = (data: any) => {
+      passport.value = data
+      
     }
 
     return {
-      passport_no,
+      passport,
       onEnroll,
     }
   },
