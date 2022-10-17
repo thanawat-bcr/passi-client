@@ -27,7 +27,11 @@ LayoutPrimary.qr
         i.ph-x-circle.text-error(v-else)
       .col-span-2.body-1.flex.justify-center
         i.ph-check-circle.text-success(v-if="passport.check_out_at")
-        SoButton(v-else @click="onRevoke(passport.id)") Revoke
+        SoButton(
+          v-else
+          @click="onRevoke(passport.id)"
+          trailing="airplane-takeoff"
+        ) Depart
 </template>
 
 <script>
