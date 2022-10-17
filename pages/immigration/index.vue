@@ -11,7 +11,7 @@ LayoutPrimary.qr
       .col-span-2.subtitle-1 NAME
       .col-span-2.subtitle-1 SURNAME
       .col-span-2.subtitle-1.text-center REGISTERED
-      .col-span-2.subtitle-1.text-center REVOKED
+      .col-span-2.subtitle-1.text-center DEPART
     .grid.grid-cols-12.gap-x-1.px-3.py-2.rounded.cursor-pointer.items-center(
       v-for="(passport, index) in passports"
       :key="passport.id"

@@ -1,10 +1,10 @@
 <template lang="pug">
 LayoutPrimary.index
-  .flex.flex-col.gap-y-2
-    .flex.flex-col.gap-y-12.items-center.my-6
-      img.w-64.h-64(:src="qrSrc")
-      h2 {{ countdown }}
-      SoButton(@click="onLogout") Logout
+  //- .flex.flex-col.gap-y-2
+  //-   .flex.flex-col.gap-y-12.items-center.my-6
+  //-     img.w-64.h-64(:src="qrSrc")
+  //-     h2 {{ countdown }}
+  //-     SoButton(@click="onLogout") Logout
 </template>
 
 <script lang="js">
@@ -14,50 +14,46 @@ import { axios } from '@/use/useAxios';
 const index = defineComponent({
   setup() {
     const router = useRouter()
-    const MAX_TIMER = ref(0);
-    const qrSrc = ref('');
-    const timer = ref(null)
-    const countdown = ref(MAX_TIMER);
+    // const MAX_TIMER = ref(0);
+    // const qrSrc = ref('');
+    // const timer = ref(null)
+    // const countdown = ref(MAX_TIMER);
 
-    const countDownTimer = () => {
-      if (countdown.value > 0) {
-        setTimeout(() => {
-          countdown.value -= 1
-          countDownTimer()
-        }, 1000);
-      } else {
-        getQrSrc()
-        countdown.value = MAX_TIMER.value
-      }
-    }
-    const getQrSrc = async () => {
-      const res = await axios.get('/user/qr')
-      MAX_TIMER.value = res.data.timer
-      qrSrc.value = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${res.data.token}`
-      countDownTimer()
-    }
+    // const countDownTimer = () => {
+    //   if (countdown.value > 0) {
+    //     setTimeout(() => {
+    //       countdown.value -= 1
+    //       countDownTimer()
+    //     }, 1000);
+    //   } else {
+    //     getQrSrc()
+    //     countdown.value = MAX_TIMER.value
+    //   }
+    // }
+    // const getQrSrc = async () => {
+    //   const res = await axios.get('/user/qr')
+    //   MAX_TIMER.value = res.data.timer
+    //   qrSrc.value = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${res.data.token}`
+    //   countDownTimer()
+    // }
 
-    onMounted(async () => {
-      const token = localStorage.getItem('token')
-      if (!token) router.push('/login')
-      else {
-        await getQrSrc()     
-      }
+    onMounted(() => {
+      router.push('/immigration')
     })
 
-    // onBeforeUnmount(() => clearInterval(timer.value))
+    // // onBeforeUnmount(() => clearInterval(timer.value))
 
-    const onLogout = () => {
-      localStorage.clear();
-      router.push('/login')
-    }
+    // const onLogout = () => {
+    //   localStorage.clear();
+    //   router.push('/login')
+    // }
 
 
     return {
-      qrSrc,
-      countdown,
+      // qrSrc,
+      // countdown,
 
-      onLogout,
+      // onLogout,
     }
   },
 });
