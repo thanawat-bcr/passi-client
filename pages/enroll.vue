@@ -1,7 +1,8 @@
 <template lang="pug">
 LayoutPrimary.index
-  ImmigrationEnroll(v-if="!passport" @onEnroll="onEnroll")
-  ImmigrationQrcode(v-else :passport="passport")
+  .py-4
+    ImmigrationEnroll(v-if="!passport" @onEnroll="onEnroll")
+    ImmigrationQrcode(v-else :passport="passport")
 </template>
 
 <script lang="ts">

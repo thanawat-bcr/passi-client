@@ -1,66 +1,83 @@
 <template lang="pug">
-LayoutPrimary.index
-  //- .flex.flex-col.gap-y-2
-  //-   .flex.flex-col.gap-y-12.items-center.my-6
-  //-     img.w-64.h-64(:src="qrSrc")
-  //-     h2 {{ countdown }}
-  //-     SoButton(@click="onLogout") Logout
+LayoutPrimary.qr
+  .flex.flex-col.gap-y-2
+    .flex.flex-col.gap-y-6.my-6.items-center
+      img.w-64.h-64(:src="qrSrc")
+      SoButton(leading="address-book" @click="$router.push('/enroll')") Enroll New Passport
+    .grid.grid-cols-12.gap-x-1.py-2(class="px-6 xl:px-64")
+      .col-span-1.subtitle-1 ID
+      .col-span-3.subtitle-1 PASSPORT_NO
+      .col-span-3.subtitle-1 NAME
+      .col-span-3.subtitle-1 SURNAME
+      .col-span-2.subtitle-1.text-center REGISTERED
+      //- .col-span-2.subtitle-1.text-center DEPART
+    .grid.grid-cols-12.gap-x-1.py-2.rounded.cursor-pointer.items-center(
+      v-for="(passport, index) in passports"
+      :key="passport.id"
+      @click="selectedIndex = index"
+      class="px-6 xl:px-64"
+      :class="{'bg-primary-500 text-white': selectedIndex === index}"
+    )
+      .col-span-1.body-2 {{ passport.id}}
+      .col-span-3.body-2 {{ passport.passport_no}}
+      .col-span-3.body-2 {{ passport.name}}
+      .col-span-3.body-2 {{ passport.surname}}
+      .col-span-2.body-1.flex.justify-center
+        i.ph-envelope-simple.text-success(v-if="passport.email")
+        i.ph-x-circle.text-error(v-else)
+      //- .col-span-2.body-1.flex.justify-center
+        i.ph-check-circle.text-success(v-if="passport.check_out_at")
+        SoButton(
+          v-else
+          @click="onRevoke(passport.id)"
+          trailing="airplane-takeoff"
+        ) Depart
 </template>
 
-<script lang="js">
-import { computed, defineComponent, onMounted, onBeforeUnmount, ref, useRouter } from '@nuxtjs/composition-api';
+<script>
+import { computed, defineComponent, onMounted, ref } from '@nuxtjs/composition-api';
 import { axios } from '@/use/useAxios';
 
-const index = defineComponent({
+const qr = defineComponent({
   setup() {
-    const router = useRouter()
-    // const MAX_TIMER = ref(0);
-    // const qrSrc = ref('');
-    // const timer = ref(null)
-    // const countdown = ref(MAX_TIMER);
-
-    // const countDownTimer = () => {
-    //   if (countdown.value > 0) {
-    //     setTimeout(() => {
-    //       countdown.value -= 1
-    //       countDownTimer()
-    //     }, 1000);
-    //   } else {
-    //     getQrSrc()
-    //     countdown.value = MAX_TIMER.value
-    //   }
-    // }
-    // const getQrSrc = async () => {
-    //   const res = await axios.get('/user/qr')
-    //   MAX_TIMER.value = res.data.timer
-    //   qrSrc.value = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${res.data.token}`
-    //   countDownTimer()
-    // }
-
-    onMounted(() => {
-      router.push('/immigration')
+    const passports = ref([])
+    const selectedIndex = ref(0)
+    onMounted(async () => {
+      const res = await axios.get('/admin/passports')
+      passports.value = res.data.passports.reverse()
     })
 
-    // // onBeforeUnmount(() => clearInterval(timer.value))
+    const qrSrc = computed(() => `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${passports.value[selectedIndex.value]?.id}`);
 
-    // const onLogout = () => {
-    //   localStorage.clear();
-    //   router.push('/login')
+    // const onRevoke = async (id) => {
+    //   try {
+    //     await axios.post('/admin/revoke', { passport: id })
+
+    //     const res = await axios.get('/admin/passports')
+    //     passports.value = res.data.passports.reverse()
+
+    //   } catch (err) {
+    //     alert(err)
+    //   }
     // }
 
-
     return {
-      // qrSrc,
-      // countdown,
+      passports,
+      selectedIndex,
 
-      // onLogout,
+      qrSrc,
+
+      // onRevoke,
     }
   },
 });
 
-export default index;
+export default qr;
+</script>
+
+export default list;
 </script>
 
 <style lang="scss" scoped>
-// .index {}
+// .list {}
 </style>
