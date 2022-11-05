@@ -16,12 +16,12 @@ section
           i.ph-lightbulb.body-1.text-primary-500.mt-1
           .flex.flex-col
             .subtitle-1.text-primary-500 Good Lighting
-            .caption.text-gray-100 Make sure you are in a well lit area and both ears are uncovered.
+            .caption.text-gray-100 Make sure you are stay a proper lighted area or well lit area.
         .flex.gap-x-2
           i.ph-smiley.body-1.text-primary-500.mt-1
           .flex.flex-col
             .subtitle-1.text-primary-500 Look Straight
-            .caption.text-gray-100 Hold your phone at eye level and look straight to the camera.
+            .caption.text-gray-100 Hold your phone at eye level, without any disguise such as glasses or mask.
       section(class="w-full sm:w-96" v-else)
         SoForm(@submit="onEnroll")
           .body-2.text-primary-500 Name
