@@ -7,7 +7,7 @@ section
       .subtitle-1.text-gray-100.text-center {{ passport.passport }}
     .flex.flex-col.gap-y-4.items-center
       img.w-64.h-64.p-4.shadow-xl(:src="qrSrc")
-      SoButton(block @click="$router.push('/enroll')") Close
+      SoButton(block @click="reload") Close
   
 </template>
 
@@ -23,8 +23,12 @@ const qrcode = defineComponent({
   setup(props: any) {
     const qrSrc = computed(() => `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${props.passport.id}`)
 
+    const reload = () => {
+      window.location.reload()
+    }
     return {
       qrSrc,
+      reload,
     }
   },
 });
